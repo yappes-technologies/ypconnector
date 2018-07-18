@@ -1,0 +1,29 @@
+{
+  "name": "ypconnector",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yappes-technologies/ypconnector.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yappes-technologies/ypconnector/issues"
+  },
+  "homepage": "https://github.com/yappes-technologies/ypconnector#readme",
+  "dependencies": {
+    "http": "0.0.0",
+    "https": "^1.0.0",
+    "qs": "^6.5.2",
+    "url": "^0.11.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
+  }
+}
