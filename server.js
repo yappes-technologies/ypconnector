@@ -28,7 +28,7 @@ app.get('/getdata', function (req, res) {
 });
 
 app.post('/postdata', function (req, res) {
-    res.status(200).send(addResponseObj);
+    res.send(addResponseObj);
 })
 
 app.put('/putdata', function (req, res) {
@@ -36,4 +36,4 @@ app.put('/putdata', function (req, res) {
 });
 
 
-app.listen(8081, () => console.log('Example app listening on port 8081'))
+app.listen(8081, () => console.log('listening on port 8081'))
