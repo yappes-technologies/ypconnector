@@ -69,7 +69,7 @@ function CustomErrorMessages() {
         "500": {
             "code": "500",
             "status": "500",
-            "statusType": " Internam Server Error "
+            "statusType": " Internal Server Error "
         },
         // Bad Gateway - Status Code 502
         "502": {
@@ -91,8 +91,9 @@ function CustomErrorMessages() {
         }
     }
 }
-checkError = function(error) {
+CustomErrorMessages.prototype.checkError = function(error) {
     if (error) {
         return self.CustomErrorMessages.messages[error.code];
     }
 }
+module.exports=CustomErrorMessages;
