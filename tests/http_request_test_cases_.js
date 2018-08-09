@@ -48,10 +48,8 @@ describe("/POST add new values", function () {
             try {
                 ypconnectObj.post(postUrl, postParams, function (err, responseData) {
                     if (responseData != undefined) {
-                        console.log(responseData.body);
                         assert.equal(JSON.parse(responseData.body).name, 'addUser');
                     } else {
-                        console.log("error" + responseData);
                         assert.equal(1, 2);
                     }
 
@@ -82,7 +80,71 @@ describe("/PUT UPDATE values", function () {
             ypconnectObj.put(updateUrl, updateParams, function (err, responseData) {
                 try {
                     if (responseData != undefined) {
-                        assert.equal(JSON.parse(responseData).name, 'updateUser');
+                        assert.equal(JSON.parse(responseData.body).name, 'updateUser');
+                    } else {
+                        assert.equal(1, 2);
+                    }
+                } catch (e) {
+                    console.log(e);
+                }
+                done();
+            });
+        });
+
+    });
+});
+//DELETE REQUEST RESPONSE CHECKS
+describe("/DELETE delete values", function () {
+    it("it should DELETE the specific details", function (done) {
+        assert.doesNotThrow(function () {
+            let deleteUrl = "http://localhost:8081/deletedata";
+            let deleteParams = {
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "queryparams": {},
+                payload: {
+                    'name': 'deleteUser',
+                    'id': '1026',
+                    'age': '10'
+                }
+            }
+            ypconnectObj.delete(deleteUrl, deleteParams, function (err, responseData) {
+                try {
+                    if (responseData != undefined) {
+                        assert.equal(JSON.parse(responseData.body).name, 'deleteUser');
+                    } else {
+                        assert.equal(1, 2);
+                    }
+                } catch (e) {
+                    console.log(e);
+                }
+                done();
+            });
+        });
+
+    });
+});
+//PATCH REQUEST RESPONSE CHECKS
+describe("/PATCH patch values", function () {
+    it("it should PATCH the specific details", function (done) {
+        assert.doesNotThrow(function () {
+            let patchUrl = "http://localhost:8081/patchdata";
+            let patchParams = {
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "queryparams": {},
+                payload: {
+                    'name': 'patchUser',
+                    'id': '1026',
+                    'age': '10'
+                }
+            }
+            ypconnectObj.patch(patchUrl, patchParams, function (err, responseData) {
+                try {
+                    if (responseData != undefined) {
+                        assert.equal(JSON.parse(responseData.body).name, 'patchUser');
                     } else {
                         assert.equal(1, 2);
                     }
