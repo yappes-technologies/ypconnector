@@ -5,19 +5,18 @@ Ypconnector provides individual action methods and a common method for making AP
 
 
 Install:
+```
 npm install ypconnector
-
+```
 Usage:
-'''
+```
 const ypconnector = require('ypconnector');
-'''
-Yappes-Token obtained from yappes portal
-'''
+
+//Yappes-Token obtained from yappes portal
 let yappesToken = "YOUR X-YAPPES-KEY";
 let ypconnectorObj = new ypconnector(yappesToken);
-'''
-Data needed to call the library methods - individual Actions(GET/POST/PUT)
-'''
+
+//Data needed to call the library methods - individual Actions(GET/POST/PUT)
 let url = "http://localhost:8081/getdata";
 let data = {
  "headers": {
@@ -30,41 +29,33 @@ let data = {
   "key":"value"
  }
 }
-'''
 
-GET Request with empty payload: {}
-'''
+//GET Request with empty payload: {}
 ypconnectObj.get(url, data, function (err, responseData) {
  if(err)
   throw err;
  else
   console.log(responseData);
 });
-'''
 
-POST Request
-'''
+//POST Request
 ypconnectObj.post(url, data, function (err, responseData) {
  if(err)
   throw err;
  else
   console.log(responseData);
 });
-'''
 
-PUT Request
-'''
+//PUT Request
 ypconnectObj.put(url, data, function (err, responseData) {
  if(err)
   throw err;
  else
   console.log(responseData);
 });
-'''
 
-Common Method
-Data needed to call the library methods - common action (call)
-'''
+//Common Method
+//Data needed to call the library methods - common action (call)
 let url = "http://localhost:8081/getdata";
 let data = {
  "method":"get"
