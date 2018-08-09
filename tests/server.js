@@ -22,7 +22,16 @@ let updateResponseObj = {
     'id': '1025',
     'age': '22'
 }
-
+let deleteResponseObj={
+    'name': 'deleteUser',
+    'id': '1025',
+    'age': '22'
+};
+let patchResponseObj={
+    'name': 'patchUser',
+    'id': '1025',
+    'age': '22'
+};
 app.get('/getdata', function (req, res) {
     res.send(getResponseObj);
 });
@@ -34,6 +43,11 @@ app.post('/postdata', function (req, res) {
 app.put('/putdata', function (req, res) {
     res.send(updateResponseObj);
 });
-
+app.delete('/deletedata',function(req,res){
+    res.send(deleteResponseObj);
+});
+app.patch('/patchdata',function(req,res){
+    res.send(patchResponseObj);
+})
 
 app.listen(8081, () => console.log('listening on port 8081'))
