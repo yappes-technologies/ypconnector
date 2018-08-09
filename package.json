@@ -1,8 +1,8 @@
 {
   "name": "ypconnector",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Nodejs SDK for integrating APIs published via Yappes platform",
+  "main": "ypconnector.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,8 +10,8 @@
     "type": "git",
     "url": "git+https://github.com/yappes-technologies/ypconnector.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "yappeslib <info@yappes.com> (https://www.yappes.com)",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/yappes-technologies/ypconnector/issues"
   },
