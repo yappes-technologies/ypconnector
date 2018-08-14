@@ -20,6 +20,22 @@ YappesLibrary.prototype.call = function (apiUrl, parameters, callback) {
 	let self = this;
 	let reqSchemeObj = https;
 	let responseChunk = "";
+	let methodList=["get","post","put","delete","patch"];
+	if(parameters.method){
+		if (parameters.method === parameters.method.toUpperCase()) {
+			parameters.method=parameters.method.toLowerCase();	
+		}
+	    else{
+	    	parameters.method=parameters.method.toLowerCase();
+	    }
+	 	if (methodList.indexOf(parameters.method)==-1) {
+	 		callback(new Error("Error 405 Unsupported Method/Method Not Allowed. Please refer read me section"));
+	 	}
+	 }
+	 else{
+	 	callback(new Error("Method not Available in parameters"));
+	 }
+			
 	let urlParts = url.parse(apiUrl);
 	let options = {
 		host: urlParts.hostname,
