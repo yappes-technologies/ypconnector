@@ -20,6 +20,22 @@ YappesLibrary.prototype.call = function (apiUrl, parameters, callback) {
 	let self = this;
 	let reqSchemeObj = https;
 	let responseChunk = "";
+	let methodList=["get","post","put","delete","patch"];
+	if(parameters.method){
+		if (parameters.method === parameters.method.toUpperCase()) {
+			parameters.method=parameters.method.toLowerCase();	
+		}
+	    else{
+	    	parameters.method=parameters.method.toLowerCase();
+	    }
+	 	if (methodList.indexOf(parameters.method)==-1) {
+	 		callback(new Error("Error 405 Unsupported Method/Method Not Allowed. Please refer read me section"));
+	 	}
+	 }
+	 else{
+	 	callback(new Error("Method not Available in parameters"));
+	 }
+			
 	let urlParts = url.parse(apiUrl);
 	let options = {
 		host: urlParts.hostname,
@@ -153,7 +169,7 @@ YappesLibrary.prototype.post = function (apiUrl, parameters, callback) {
 	if (Object.keys(parameters.payload).length > 0) {
 		requestObj.write(JSON.stringify(parameters.payload));
 	} else {
-		callback(new Error("Payload required for PUT/POST Methods"));
+		callback(new Error("Payload required for PUT/POST/PATCH Methods"));
 	}
 	requestObj.on('error', function (err) {
 		msgObj.checkError(err);
@@ -203,7 +219,7 @@ YappesLibrary.prototype.put = function (apiUrl, parameters, callback) {
 	if (Object.keys(parameters.payload).length > 0) {
 		requestObj.write(JSON.stringify(parameters.payload));
 	} else {
-		callback(new Error("Payload required for PUT/POST Methods"));
+		callback(new Error("Payload required for PUT/POST/PATCH Methods"));
 	}
 	requestObj.on('error', function (err) {
 		msgObj.checkError(err);
@@ -211,5 +227,100 @@ YappesLibrary.prototype.put = function (apiUrl, parameters, callback) {
 	});
 	requestObj.end();
 }
+//DELETE
+YappesLibrary.prototype.delete = function (apiUrl, parameters, callback) {
+	let self = this;
+	let reqSchemeObj = https;
+	let responseChunk = "";
+	let urlParts = url.parse(apiUrl);
+	let options = {
+		host: urlParts.hostname,
+		path: urlParts.pathname,
+		port: urlParts.port,
+		method: 'delete',
+		headers: parameters.headers
+	};
+	options.headers["X-YAPPES-KEY"] = self.xyappeskey;
 
+	if (!options.port) {
+		options.port = 443;
+	}
+	if (Object.keys(parameters.queryparams).length > 0) {
+		options.path += "?" + qs.stringify(parameters.queryparams, {
+			encode: false
+		});
+	}
+	if (!urlParts.protocol.match(/https+/)) {
+		reqSchemeObj = http;
+	} else {
+		reqSchemeObj = https;
+	}
+	let requestObj = reqSchemeObj.request(options, function (response) {
+		response.on('data', function (chunk) {
+			responseChunk += chunk;
+		});
+		response.on('end', function () {
+			responseSchema.headers = response.headers;
+			responseSchema.statusCode = response.statusCode;
+			responseSchema.statusMessage = response.statusMessage;
+			responseSchema.body = responseChunk;
+			callback(null, responseSchema);
+		});
+	});
+	requestObj.on('error', function (err) {
+		msgObj.checkError(err);
+		callback(err);
+	});
+	requestObj.end();
+}
+YappesLibrary.prototype.patch = function (apiUrl, parameters, callback) {
+	let self = this;
+	let reqSchemeObj = https;
+	let responseChunk = "";
+	let urlParts = url.parse(apiUrl);
+	let options = {
+		host: urlParts.hostname,
+		path: urlParts.pathname,
+		port: urlParts.port,
+		method: 'PATCH',
+		headers: parameters.headers
+	};
+	options.headers["X-YAPPES-KEY"] = self.xyappeskey;
+
+	if (!options.port) {
+		options.port = 443;
+	}
+	if (Object.keys(parameters.queryparams).length > 0) {
+		options.path += "?" + qs.stringify(parameters.queryparams, {
+			encode: false
+		});
+	}
+	if (!urlParts.protocol.match(/https+/)) {
+		reqSchemeObj = http;
+	} else {
+		reqSchemeObj = https;
+	}
+	let requestObj = reqSchemeObj.request(options, function (response) {
+		response.on('data', function (chunk) {
+			responseChunk += chunk;
+		});
+		response.on('end', function () {
+			responseSchema.headers = response.headers;
+			responseSchema.statusCode = response.statusCode;
+			responseSchema.statusMessage = response.statusMessage;
+			responseSchema.body = responseChunk;
+			callback(null, responseSchema);
+		});
+	});
+	if (Object.keys(parameters.payload).length > 0) {
+		requestObj.write(JSON.stringify(parameters.payload));
+	} else {
+		callback(new Error("Payload required for PUT/POST/PATCH Methods"));
+	}
+	requestObj.on('error', function (err) {
+		msgObj.checkError(err);
+		callback(err);
+	});
+	requestObj.end();
+}
 module.exports = YappesLibrary
