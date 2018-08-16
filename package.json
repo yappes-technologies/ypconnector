@@ -1,6 +1,6 @@
 {
   "name": "ypconnector",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Nodejs SDK for integrating APIs published via Yappes platform",
   "main": "ypconnector.js",
   "scripts": {
