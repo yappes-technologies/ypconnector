@@ -31,7 +31,7 @@ let data = {
 }
 
 //GET Request with empty payload: {}
-ypconnectObj.get(url, data, function (err, responseData) {
+ypconnectorObj.get(url, data, function (err, responseData) {
  if(err)
   throw err;
  else
@@ -39,7 +39,7 @@ ypconnectObj.get(url, data, function (err, responseData) {
 });
 
 //POST Request
-ypconnectObj.post(url, data, function (err, responseData) {
+ypconnectorObj.post(url, data, function (err, responseData) {
  if(err)
   throw err;
  else
@@ -47,7 +47,7 @@ ypconnectObj.post(url, data, function (err, responseData) {
 });
 
 //PUT Request
-ypconnectObj.put(url, data, function (err, responseData) {
+ypconnectorObj.put(url, data, function (err, responseData) {
  if(err)
   throw err;
  else
@@ -70,7 +70,7 @@ let data = {
  }
 }
 
-ypconnectObj.call(url, data, function (err, responseData) {
+ypconnectorObj.call(url, data, function (err, responseData) {
  if(err)
   throw err;
  else
