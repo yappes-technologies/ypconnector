@@ -169,7 +169,8 @@ YappesLibrary.prototype.post = function (apiUrl, parameters, callback) {
 	if (Object.keys(parameters.payload).length > 0) {
 		requestObj.write(JSON.stringify(parameters.payload));
 	} else {
-		callback(new Error("Payload required for PUT/POST/PATCH Methods"));
+		parameters.payload={};
+		requestObj.write(JSON.stringify(parameters.payload));
 	}
 	requestObj.on('error', function (err) {
 		msgObj.checkError(err);
@@ -219,7 +220,8 @@ YappesLibrary.prototype.put = function (apiUrl, parameters, callback) {
 	if (Object.keys(parameters.payload).length > 0) {
 		requestObj.write(JSON.stringify(parameters.payload));
 	} else {
-		callback(new Error("Payload required for PUT/POST/PATCH Methods"));
+		parameters.payload={};
+		requestObj.write(JSON.stringify(parameters.payload));
 	}
 	requestObj.on('error', function (err) {
 		msgObj.checkError(err);
@@ -241,7 +243,6 @@ YappesLibrary.prototype.delete = function (apiUrl, parameters, callback) {
 		headers: parameters.headers
 	};
 	options.headers["X-YAPPES-KEY"] = self.xyappeskey;
-
 	if (!options.port) {
 		options.port = 443;
 	}
@@ -267,6 +268,12 @@ YappesLibrary.prototype.delete = function (apiUrl, parameters, callback) {
 			callback(null, responseSchema);
 		});
 	});
+	if (Object.keys(parameters.payload).length > 0) {
+		requestObj.write(JSON.stringify(parameters.payload));
+	} else {
+		parameters.payload={};
+		requestObj.write(JSON.stringify(parameters.payload));
+	}
 	requestObj.on('error', function (err) {
 		msgObj.checkError(err);
 		callback(err);
@@ -315,7 +322,8 @@ YappesLibrary.prototype.patch = function (apiUrl, parameters, callback) {
 	if (Object.keys(parameters.payload).length > 0) {
 		requestObj.write(JSON.stringify(parameters.payload));
 	} else {
-		callback(new Error("Payload required for PUT/POST/PATCH Methods"));
+		parameters.payload={};
+		requestObj.write(JSON.stringify(parameters.payload));
 	}
 	requestObj.on('error', function (err) {
 		msgObj.checkError(err);
