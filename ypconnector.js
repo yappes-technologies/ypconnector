@@ -72,10 +72,12 @@ YappesLibrary.prototype.call = function (apiUrl, parameters, callback) {
 		callback(err);
 	});
 	if (options.path != "get") {
-		if (Object.keys(parameters.payload).length > 0) {
+		if (Object.keys(parameters.payload).length > 0 && options.headers["Content-Type"]!='application/xml' ) {
 			requestObj.write(JSON.stringify(parameters.payload));
+		} else if(options.headers["Content-Type"]=='application/xml'){
+			requestObj.write(Object.values(parameters.payload)[0])
 		} else {
-			callback(new Error("Payload required for PUT/POST Methods"));
+				callback(new Error("Payload required for PUT/POST Methods"));
 		}
 	}
 	requestObj.end();
@@ -166,8 +168,10 @@ YappesLibrary.prototype.post = function (apiUrl, parameters, callback) {
 			callback(null, responseSchema);
 		});
 	});
-	if (Object.keys(parameters.payload).length > 0) {
+	if (Object.keys(parameters.payload).length > 0 && options.headers["Content-Type"]!='application/xml' ) {
 		requestObj.write(JSON.stringify(parameters.payload));
+	} else if(options.headers["Content-Type"]=='application/xml'){
+		requestObj.write(Object.values(parameters.payload)[0])
 	} else {
 		parameters.payload={};
 		requestObj.write(JSON.stringify(parameters.payload));
@@ -217,8 +221,10 @@ YappesLibrary.prototype.put = function (apiUrl, parameters, callback) {
 			callback(null, responseSchema);
 		});
 	});
-	if (Object.keys(parameters.payload).length > 0) {
+	if (Object.keys(parameters.payload).length > 0 && options.headers["Content-Type"]!='application/xml' ) {
 		requestObj.write(JSON.stringify(parameters.payload));
+	} else if(options.headers["Content-Type"]=='application/xml'){
+		requestObj.write(Object.values(parameters.payload)[0])
 	} else {
 		parameters.payload={};
 		requestObj.write(JSON.stringify(parameters.payload));
@@ -268,8 +274,10 @@ YappesLibrary.prototype.delete = function (apiUrl, parameters, callback) {
 			callback(null, responseSchema);
 		});
 	});
-	if (Object.keys(parameters.payload).length > 0) {
+	if (Object.keys(parameters.payload).length > 0 && options.headers["Content-Type"]!='application/xml' ) {
 		requestObj.write(JSON.stringify(parameters.payload));
+	} else if(options.headers["Content-Type"]=='application/xml'){
+		requestObj.write(Object.values(parameters.payload)[0])
 	} else {
 		parameters.payload={};
 		requestObj.write(JSON.stringify(parameters.payload));
@@ -319,8 +327,10 @@ YappesLibrary.prototype.patch = function (apiUrl, parameters, callback) {
 			callback(null, responseSchema);
 		});
 	});
-	if (Object.keys(parameters.payload).length > 0) {
+	if (Object.keys(parameters.payload).length > 0 && options.headers["Content-Type"]!='application/xml' ) {
 		requestObj.write(JSON.stringify(parameters.payload));
+	} else if(options.headers["Content-Type"]=='application/xml'){
+		requestObj.write(Object.values(parameters.payload)[0])
 	} else {
 		parameters.payload={};
 		requestObj.write(JSON.stringify(parameters.payload));
